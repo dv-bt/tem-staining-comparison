@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tem-staining"
+version = "0.1.0"
+description = "A collection of python functions used in a paper about TEM staining comparison"
+authors = [{ name = "Davide Bottone", email = "davide.bottone@empa.ch" }]
+license = {text = "MIT"}
+dependencies = [
+    "numpy>=2",
+    "opencv-python>=4.10",
+    "scipy>=1.14"
+]
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "black",
+    "flake8",
+    "pre-commit>=4.1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["tem-staining"]
+
+[tool.pytest.ini_options]
+pythonpath = "src"
