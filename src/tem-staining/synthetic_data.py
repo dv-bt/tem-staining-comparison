@@ -18,7 +18,7 @@ def generate_ferritin_rings(
     pixel_size: float = 3.187074353033632e-10,
     outer_radius: float = 5.5e-9,
     inner_radius: float = 4e-9,
-    random_state: int | None = None
+    random_state: int | None = None,
 ) -> np.ndarray:
     """
     Generate a synthetic image with ferritin rings. Ferritin rings centers are placed
@@ -68,7 +68,7 @@ def generate_ferritin_rings(
     inner_radius = inner_radius / pixel_size
 
     # Calculate the number of points to generate and minimum distance between them
-    n_points = round(areal_density * image.size / (np.pi * outer_radius ** 2))
+    n_points = round(areal_density * image.size / (np.pi * outer_radius**2))
     min_distance = 2 * outer_radius + min_ring_spacing
 
     # Generate the points with a Poisson disk dart throwing algorithm
@@ -106,7 +106,6 @@ def _poisson_disk_dart_throw(
             if np.linalg.norm(np.array(new_point) - np.array(point)) < min_distance:
                 return True
         return False
-    
 
     def propose_point(image, random_generator):
         """Propose a new point"""
@@ -115,7 +114,6 @@ def _poisson_disk_dart_throw(
             random_generator.integers(0, image.shape[0]),
         )
         return new_point
-
 
     centers = []
     rng = np.random.default_rng(seed=random_state)
@@ -163,13 +161,13 @@ def calculate_point_distances(points: np.ndarray) -> np.ndarray:
     distances : np.ndarray
         The distances between points and their nearest neighbors
     """
-    
+
     tri = Delaunay(points)
 
     distances = []
     (indptr, indices) = tri.vertex_neighbor_vertices
     for i, point in enumerate(tri.points):
-        for neighbor in indices[indptr[i]:indptr[i + 1]]:
+        for neighbor in indices[indptr[i] : indptr[i + 1]]:
             distances.append(np.linalg.norm(point - tri.points[neighbor]))
 
     return np.array(distances)
