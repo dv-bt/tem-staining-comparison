@@ -5,6 +5,7 @@ Functions for generatic synthetic data of ferritin rings.
 import cv2
 import numpy as np
 from scipy.spatial import Delaunay
+from scipy import ndimage
 
 
 def generate_ferritin_rings(
@@ -14,7 +15,8 @@ def generate_ferritin_rings(
     background_value: int = 80,
     ring_value: int = 180,
     inner_value: int = 100,
-    gaussian_noise_sigma: int = 10,
+    filter_sigma: int = 1.5,
+    noise_sigma: int = 10.0,
     pixel_size: float = 3.187074353033632e-10,
     outer_radius: float = 5.5e-9,
     inner_radius: float = 4e-9,
@@ -30,27 +32,42 @@ def generate_ferritin_rings(
     ----------
     image_width : int, optional
         The width of the square image generated
+        Default=920
     min_ring_spacing : int, optional
-        The minimum distance between the outer edges of the ferritin rings
+        The minimum distance between the outer edges of the ferritin rings, in pixels
+        Default=0
     areal_density : float, optional
         The areal density of the ferritin rings
+        Default=0.2
     background_value : int, optional
         The value of the background pixels
+        Default=80
     ring_value : int, optional
         The value of the pixels in the outer part of the ferritin rings
+        Default=180
     inner_value : int, optional
         The value of the pixels in the inner part of the ferritin rings
-    gaussian_noise_sigma : int, optional
+        Default=100
+    filter_sigma : float, optional
+        The sigma of the Gaussian filter applied to the Fourier transform of the image.
+        A sigma of 0 is equal to no filter.
+        Default=1.5
+    noise_sigma : float, optional
         The standard deviation of the Gaussian noise added to the image. A sigma of 0
         is equal to no noise.
+        Default=10.0
     pixel_size : float, optional
         The physical size of the pixels in the image, in m
+        Default=3.187074353033632e-10
     outer_radius : float, optional
         The outer radius of the ferritin rings, in m
+        Default=5.5e-9
     inner_radius : float, optional
         The inner radius of the ferritin rings, in m
+        Default=4e-9
     random_state: int | None, optional
         Seed for the random state used by the algorithm, provided for reproducibility
+        Default=None
 
     Returns
     -------
@@ -84,8 +101,13 @@ def generate_ferritin_rings(
         inner_radius,
     )
 
+    # Apply Gaussian filter on fourier transform
+    input_ = np.fft.fft2(image)
+    result = ndimage.fourier_gaussian(input_, sigma=filter_sigma)
+    image = np.fft.ifft2(result).real
+
     # Gaussian noise
-    noise = rng.normal(0, gaussian_noise_sigma, image.shape)
+    noise = rng.normal(0, noise_sigma, image.shape)
     image = image + noise
     image = np.clip(image, 0, 255)
 
