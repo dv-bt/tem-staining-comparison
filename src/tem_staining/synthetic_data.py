@@ -19,7 +19,7 @@ def generate_ferritin_rings(
     noise_sigma: int = 10.0,
     pixel_size: float = 3.187074353033632e-10,
     outer_radius: float = 5.5e-9,
-    inner_radius: float = 4e-9,
+    inner_radius: float = 2.3e-9,
     random_state: int | None = None,
 ) -> np.ndarray:
     """
