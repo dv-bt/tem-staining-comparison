@@ -4,8 +4,8 @@ Functions for generatic synthetic data of ferritin rings.
 
 import cv2
 import numpy as np
-from scipy.spatial import Delaunay
 from scipy import ndimage
+from scipy.spatial import Delaunay
 
 
 def generate_ferritin_rings(
