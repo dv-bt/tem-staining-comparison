@@ -12,14 +12,14 @@ def generate_ferritin_rings(
     image_width: int = 920,
     min_ring_spacing: int = 0,
     areal_density: float = 0.2,
-    background_value: int = 80,
+    background_value: int = 100,
     ring_value: int = 180,
-    inner_value: int = 100,
+    inner_value: int = 120,
     filter_sigma: int = 1.5,
     noise_sigma: int = 10.0,
     pixel_size: float = 3.187074353033632e-10,
     outer_radius: float = 5.5e-9,
-    inner_radius: float = 2.3e-9,
+    inner_radius: float = 2.72e-9,
     random_state: int | None = None,
 ) -> np.ndarray:
     """
