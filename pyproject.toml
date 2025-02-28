@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tem-staining"
 version = "0.1.0"
-description = "A collection of python functions used in a paper about TEM staining comparison"
+description = "A collection of functions to generate synthetic images of ferritin rings and perform spectral analysis"
 authors = [{ name = "Davide Bottone", email = "davide.bottone@empa.ch" }]
 license = {text = "MIT"}
 dependencies = [
