@@ -11,7 +11,7 @@ from scipy.spatial import Delaunay
 def generate_ferritin_rings(
     image_width: int = 920,
     min_ring_spacing: int = 0,
-    areal_density: float = 0.2,
+    areal_fraction: float = 0.2,
     background_value: int = 100,
     ring_value: int = 180,
     inner_value: int = 120,
@@ -26,7 +26,7 @@ def generate_ferritin_rings(
     Generate a synthetic image with ferritin rings. Ferritin rings centers are placed
     with a Poisson disk dart throwing algorithm. Currently, the algorithm does not have
     a termination conditions, therefore it might hang indefinitely if the areal density
-    or the minimum ring spacing is too high (areal_density>0.4 for min_ring_spacing=0).
+    or the minimum ring spacing is too high (areal_fraction>0.4 for min_ring_spacing=0).
 
     Parameters
     ----------
@@ -36,7 +36,7 @@ def generate_ferritin_rings(
     min_ring_spacing : int, optional
         The minimum distance between the outer edges of the ferritin rings, in pixels
         Default=0
-    areal_density : float, optional
+    areal_fraction : float, optional
         The areal density of the ferritin rings
         Default=0.2
     background_value : int, optional
@@ -85,7 +85,7 @@ def generate_ferritin_rings(
     inner_radius = inner_radius / pixel_size
 
     # Calculate the number of points to generate and minimum distance between them
-    n_points = round(areal_density * image.size / (np.pi * outer_radius**2))
+    n_points = round(areal_fraction * image.size / (np.pi * outer_radius**2))
     min_distance = 2 * outer_radius + min_ring_spacing
 
     # Generate the points with a Poisson disk dart throwing algorithm
