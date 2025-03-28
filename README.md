@@ -31,6 +31,13 @@ cv2.imwrite("example_image.png", image)
 
 ![Example image](example_image.png)
 
+## Notebooks
+
+The repository includes the notebooks used to generate synthetic data and perform spectral analysis, as well as the raw and processed data. To run the notebooks and repoduce the results, navigate to the `notebooks` directory and install the virtual environment from the `environment.yml` file:
+```bash
+conda env create -f environment.yml
+```
+
 ## Acknowledgements
 
 This work was financed by the MetrINo project (23.00360, 22HLT04). The project received funding from the European Partnership on Metrology, co-financed by the European Union's Horizon Europe Research and Innovation Programme and SERI (REF-1131-52104)
