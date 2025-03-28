@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tem-staining"
-version = "0.1.0"
+version = "0.1.1"
 description = "A collection of functions to generate synthetic images of ferritin rings and perform spectral analysis"
 authors = [{ name = "Davide Bottone", email = "davide.bottone@empa.ch" }]
 license = {text = "MIT"}
